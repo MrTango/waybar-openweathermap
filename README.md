@@ -1,6 +1,8 @@
 Waybar weather plugin
 =====================
 
+This plugin uses the [One Call API from OpenWeatherMap.org](https://openweathermap.org/api/one-call-api).
+
 ## set your APIKEY and geo location in your shell
 
 In your ~/.bashrc add the following definition and place your APIKEY in there

@@ -67,11 +67,11 @@ def main():
     data[
         "tooltip"
     ] = """Feels like {0}°C
-    Pressure {1}
-    Humidity {2}
-    Sunrise {3}
-    Sunrise {4}
-    Wind speed {5}
+Pressure {1}
+Humidity {2}
+Sunrise {3}
+Sunset {4}
+Wind speed {5}Km/h
     """.format(
         feels_like, pressure, humidity, sunrise, sunset, wind_speed
     )

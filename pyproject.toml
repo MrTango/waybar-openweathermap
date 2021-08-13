@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "waybar-openweathermap"
-version = "1.0"
+version = "1.0.1"
 description = "Weather info widget for Waybar, from OpenWeatherMap.org"
 authors = ["Maik Derstappen - Derico"]
 license = "MIT"
