@@ -28,18 +28,20 @@ def main():
     weather_exclude = os.getenv("WAYBAR_WEATHER_EXCLUDE", "minutely,daily")
 
     data = {}
-
-    weather = requests.get(
-        "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&units={units}&exclude={exclude}&appid={apikey}".format(
-            **{
-                "apikey": apikey,
-                "lat": weather_lat,
-                "lon": weather_lon,
-                "units": weather_units,
-                "exclude": weather_exclude,
-            }
-        )
-    ).json()
+    try:
+        weather = requests.get(
+            "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&units={units}&exclude={exclude}&appid={apikey}".format(
+                **{
+                    "apikey": apikey,
+                    "lat": weather_lat,
+                    "lon": weather_lon,
+                    "units": weather_units,
+                    "exclude": weather_exclude,
+                }
+            )
+        ).json()
+    except Exception as e:
+        return print({})
 
     if weather.get("cod"):
         data["text"] = "[weather] Error {}: {}".format(
