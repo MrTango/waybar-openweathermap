@@ -58,13 +58,13 @@ def main():
     ).strftime("%H:%M")
     wind_speed = weather["current"]["wind_speed"]
 
-    data["text"] = f"{icon} {temp}°C"
-    data["tooltip"] = f"""Feels like {feels_like}°C
+    data["text"] = f"{icon} {temp:.1f}°C"
+    data["tooltip"] = f"""Feels like {feels_like:.1f}°C
 Pressure {pressure}
 Humidity {humidity}
 Sunrise {sunrise}
 Sunset {sunset}
-Wind speed {wind_speed}Km/h"""
+Wind speed {wind_speed:.0f}Km/h"""
     data["class"] = "weather"
 
     print(json.dumps(data))
