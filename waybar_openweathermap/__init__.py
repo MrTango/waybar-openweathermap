@@ -19,6 +19,11 @@ ICON_MAP = {
     "50d": "🌫",
 }
 
+UNITS_MAP = {
+    "standard": ("K", "m/sec"),
+    "metric": ("°C","m/sec"),
+    "imperial": ("°F", "mph"),
+}
 
 def main():
     apikey = os.getenv("WAYBAR_WEATHER_APIKEY")
@@ -58,13 +63,13 @@ def main():
     ).strftime("%H:%M")
     wind_speed = weather["current"]["wind_speed"]
 
-    data["text"] = f"{icon} {temp:.1f}°C"
-    data["tooltip"] = f"""Feels like {feels_like:.1f}°C
-Pressure {pressure}
-Humidity {humidity}
+    data["text"] = f"{icon} {temp:.1f}{UNITS_MAP[units][0]}"
+    data["tooltip"] = f"""Feels like {feels_like:.1f}{UNITS_MAP[units][0]}
+Pressure {pressure} hPa
+Humidity {humidity}% 
 Sunrise {sunrise}
 Sunset {sunset}
-Wind speed {wind_speed:.0f}Km/h"""
+Wind speed {wind_speed:.0f} {UNITS_MAP[units][1]}"""
     data["class"] = "weather"
 
     print(json.dumps(data))
