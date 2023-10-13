@@ -19,27 +19,25 @@ ICON_MAP = {
     "50d": "🌫",
 }
 
+UNITS_MAP = {
+    "standard": ("K", "m/sec"),
+    "metric": ("°C","m/sec"),
+    "imperial": ("°F", "mph"),
+}
 
 def main():
     apikey = os.getenv("WAYBAR_WEATHER_APIKEY")
-    weather_lat = os.getenv("WAYBAR_WEATHER_LAT", "52.52")
-    weather_lon = os.getenv("WAYBAR_WEATHER_LON", "13.38")
-    weather_units = os.getenv("WAYBAR_WEATHER_UNITS", "metric")
-    weather_exclude = os.getenv("WAYBAR_WEATHER_EXCLUDE", "minutely,daily")
+    lat = os.getenv("WAYBAR_WEATHER_LAT", "52.52")
+    lon = os.getenv("WAYBAR_WEATHER_LON", "13.38")
+    units = os.getenv("WAYBAR_WEATHER_UNITS", "metric")
+    exclude = os.getenv("WAYBAR_WEATHER_EXCLUDE", "minutely,daily")
 
     data = {}
     try:
-        weather = requests.get(
-            "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&units={units}&exclude={exclude}&appid={apikey}".format(
-                **{
-                    "apikey": apikey,
-                    "lat": weather_lat,
-                    "lon": weather_lon,
-                    "units": weather_units,
-                    "exclude": weather_exclude,
-                }
-            )
-        ).json()
+        url = (f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}"
+               f"&lon={lon}&units={units}&exclude={exclude}&appid={apikey}")
+        weather = requests.get(url).json()
+
     except Exception as e:
         return print({})
 
@@ -65,18 +63,13 @@ def main():
     ).strftime("%H:%M")
     wind_speed = weather["current"]["wind_speed"]
 
-    data["text"] = "{0} {1}°C".format(icon, temp)
-    data[
-        "tooltip"
-    ] = """Feels like {0}°C
-Pressure {1}
-Humidity {2}
-Sunrise {3}
-Sunset {4}
-Wind speed {5}Km/h
-    """.format(
-        feels_like, pressure, humidity, sunrise, sunset, wind_speed
-    )
+    data["text"] = f"{icon} {temp:.1f}{UNITS_MAP[units][0]}"
+    data["tooltip"] = f"""Feels like {feels_like:.1f}{UNITS_MAP[units][0]}
+Pressure {pressure} hPa
+Humidity {humidity}% 
+Sunrise {sunrise}
+Sunset {sunset}
+Wind speed {wind_speed:.0f} {UNITS_MAP[units][1]}"""
     data["class"] = "weather"
 
     print(json.dumps(data))
