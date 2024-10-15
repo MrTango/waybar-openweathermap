@@ -44,7 +44,7 @@ def main():
 
     data = {}
     try:
-        url = (f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}"
+        url = (f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}"
                f"&lon={lon}&units={units}&exclude={exclude}&appid={apikey}")
         weather = requests.get(url).json()
 
