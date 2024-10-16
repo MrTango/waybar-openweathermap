@@ -1,7 +1,10 @@
 Waybar weather plugin
 =====================
 
-This plugin uses the [One Call API from OpenWeatherMap.org](https://openweathermap.org/api/one-call-api).
+This plugin uses the [One Call API from OpenWeatherMap.org](https://openweathermap.org/api/one-call-3).
+You need to have an active subscription, but with normal usage you should never go over the free limit of 1000 request per day.
+My refresh setting for the swaybar plugin is 300s.
+
 
 ## set your APIKEY and geo location in your shell
 
